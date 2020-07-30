@@ -21,7 +21,7 @@ function Main(){
   const [gridFull, setGridFull] = useState([Array(rows).fill().map(() => {
     Array(cols).fill(false)
   })])
-
+``
   const otherGrid = [rows].fill().map(() => {
     [cols].fill(false)
   })
