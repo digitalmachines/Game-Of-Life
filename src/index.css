@@ -23,15 +23,15 @@ code {
 }
 
 .off{
-  background-color: lightgray; 
+  background-color: yellow; 
 }
 
 .on{
-  background-color: green;
+  background-color: blue;
 }
 
 .box:hover{
-  background: #00CCFF; 
+  background: red; 
 }
 
 .center{
@@ -49,7 +49,7 @@ code {
 }
 
 h1, h2, h3, h4{
-  color: white; 
+  color: black; 
   margin: auto; 
   text-align: center; 
   width: 50%; 
@@ -58,4 +58,34 @@ h1, h2, h3, h4{
 
 h4{
   margin-top: 0px;
+}
+
+/* 
+
+mine
+
+*/
+
+.game{
+ margin: auto; 
+ margin-top: 15px;
+ width: 50%;  
+}
+
+.board{
+  margin: auto;
+  width: 150px; 
+  height: 150px; 
+  border: 1px solid black; 
+}
+
+
+.alive{
+  border: 1px solid black; 
+  background-color: purple;
+}
+
+.dead{
+  border: 1px solid black; 
+  background-color: white;
 }
