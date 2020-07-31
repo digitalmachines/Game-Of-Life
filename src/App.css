@@ -2,10 +2,23 @@
     padding: 2%; 
     display: flex; 
     flex-wrap: wrap;
+    justify-content: space-evenly;
+    background-color: #001D4A;
+    height: 100%;
 }
 
 .rules{
+    background-color: white;
+    padding: 8% 0; 
     margin: 0 auto; 
     width: 40%; 
     color: #006992;
+}
+
+.rules h1, h2{
+    color:  #001D4A
+}
+
+.rules h3{
+    color: #FF1B1C;
 }

@@ -18,12 +18,11 @@
     margin: auto; 
     padding: 1%; 
     text-align: center;
-    border: 1px solid black; 
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
-.controls button{
+.buttons button{
     margin: 1%; 
 }
 
@@ -31,4 +30,11 @@
 .button {
     margin-left: 12px;
     cursor: pointer;
+}
+
+.game{
+    background-color: white;
+    padding: 1%; 
+    width: 50%; 
+    
 }

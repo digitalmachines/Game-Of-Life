@@ -2,9 +2,9 @@ import React from 'react';
 import './Board.css';
 import { Button } from '@material-ui/core'; 
 
-const sizeofcell = 25;
 const boardwidth = 800;
 const boardheight = 600;
+const sizeofcell = 25;
 
 class Board extends React.Component {
 
@@ -13,16 +13,17 @@ class Board extends React.Component {
         this.rows = boardheight / sizeofcell;
         this.cols = boardwidth / sizeofcell;
 
-        this.board = this.makeEmptyBoard();
+        this.board = this.generateEmptyGrid();
     }
 
     state = {
         cells: [],
         isRunning: false,
         interval: 100,
+        generations: 0
     }
 
-    makeEmptyBoard() {
+    generateEmptyGrid() {
         let board = [];
         for (let y = 0; y < this.rows; y++) {
             board[y] = [];
@@ -87,7 +88,7 @@ class Board extends React.Component {
     }
 
     runGeneration() {
-        let newBoard = this.makeEmptyBoard();
+        let newBoard = this.generateEmptyGrid();
 
         for (let y = 0; y < this.rows; y++) {
             for (let x = 0; x < this.cols; x++) {
@@ -108,6 +109,9 @@ class Board extends React.Component {
 
         this.board = newBoard;
         this.setState({ cells: this.makeCells() });
+        this.setState(prevState => {
+            return {generations: prevState.generations + 1}
+         })
 
         this.timeoutHandler = window.setTimeout(() => {
             this.runGeneration();
@@ -141,8 +145,9 @@ class Board extends React.Component {
     }
 
     clearBoard = () => {
-        this.board = this.makeEmptyBoard();
+        this.board = this.generateEmptyGrid();
         this.setState({ cells: this.makeCells() });
+        this.setState({ generations: 0 })
     }
 
     generateRandom = () => {
@@ -158,7 +163,7 @@ class Board extends React.Component {
     render() {
         const { cells, interval, isRunning } = this.state;
         return (
-            <div>
+            <div className='game'>
                 <div className="Board"
                     style={{ width: boardwidth, height: boardheight, backgroundSize: `${sizeofcell}px ${sizeofcell}px`}}
                     onClick={this.handleClick}
@@ -168,8 +173,9 @@ class Board extends React.Component {
                         <Cell x={cell.x} y={cell.y} key={`${cell.x},${cell.y}`}/>
                     ))}
                 </div>
-
+                <h2>Generations: {this.state.generations}    </h2>
                 <div className="buttons">
+                    
                     {/* Update every <input value={this.state.interval} onChange={this.handleIntervalChange} /> msec */}
                     <Button variant='contained' color='primary' className="button" onClick={this.generateRandom}>Random</Button>
                     {isRunning ?
