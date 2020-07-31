@@ -1,0 +1,40 @@
+.Board {
+    border: 1px solid black; 
+    position: relative;
+    margin: 0 auto;
+    background-color: #001D4A;
+    background-image:
+        linear-gradient(#333 1px, transparent 1px),
+        linear-gradient(90deg, #333 1px, transparent 1px);
+}
+
+.Cell {
+    background: #ccc;
+    position: absolute;
+}
+
+.buttons {
+    width: 40%;
+    margin: auto; 
+    padding: 1%; 
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.buttons button{
+    margin: 1%; 
+}
+
+
+.button {
+    margin-left: 12px;
+    cursor: pointer;
+}
+
+.game{
+    background-color: white;
+    padding: 1%; 
+    width: 50%; 
+    
+}
