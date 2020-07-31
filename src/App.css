@@ -9,16 +9,22 @@
 
 .rules{
     background-color: white;
+
     padding: 8% 0; 
     margin: 0 auto; 
     width: 40%; 
     color: #006992;
 }
 
-.rules h1, h2{
-    color:  #001D4A
+.rules h1{
+    color:  #F61067;
+}
+
+.rules h2{
+    color: #E3170A;
 }
 
 .rules h3{
-    color: #FF1B1C;
+    color: #004E89;
+    width: 80%; 
 }

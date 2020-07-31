@@ -140,10 +140,6 @@ class Board extends React.Component {
         return neighbors;
     }
 
-    handleIntervalChange = (event) => {
-        this.setState({ interval: event.target.value });
-    }
-
     clearBoard = () => {
         this.board = this.generateEmptyGrid();
         this.setState({ cells: this.makeCells() });
@@ -161,7 +157,7 @@ class Board extends React.Component {
     }
 
     render() {
-        const { cells, interval, isRunning } = this.state;
+        const { cells, isRunning } = this.state;
         return (
             <div className='game'>
                 <div className="Board"
@@ -175,14 +171,12 @@ class Board extends React.Component {
                 </div>
                 <h2>Generations: {this.state.generations}    </h2>
                 <div className="buttons">
-                    
-                    {/* Update every <input value={this.state.interval} onChange={this.handleIntervalChange} /> msec */}
-                    <Button variant='contained' color='primary' className="button" onClick={this.generateRandom}>Random</Button>
                     {isRunning ?
-                        <Button variant='contained' color='primary' className="button" onClick={this.endGame}>Stop</Button> :
-                        <Button variant='contained' color='primary' className="button" onClick={this.beginGame}>Start</Button>
+                        <Button size='large' variant='contained' color='primary' className="button" onClick={this.endGame}>End Game</Button> :
+                        <Button size='large' variant='contained' color='primary' className="button" onClick={this.beginGame}>Begin Game</Button>
                     }
-                    <Button variant='contained' color='primary' className="button" onClick={this.clearBoard}>Clear</Button>
+                    <Button size='large' variant='contained' color='primary' className="button" onClick={this.generateRandom}>Generate Random</Button>
+                    <Button size='large' variant='contained' color='primary' className="button" onClick={this.clearBoard}>Clear Board</Button>
                 </div>
             </div>
         );

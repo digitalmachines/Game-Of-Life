@@ -19,7 +19,6 @@ import Rules from './Rules';
 export default function App(){
 	return(
 		<div className='container'>
-			
 			<Rules/>			
 			<Board/>			
 		</div>
