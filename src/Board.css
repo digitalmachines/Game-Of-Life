@@ -1,7 +1,8 @@
 .Board {
+    border: 1px solid black; 
     position: relative;
     margin: 0 auto;
-    background-color: #000;
+    background-color: #001D4A;
     background-image:
         linear-gradient(#333 1px, transparent 1px),
         linear-gradient(90deg, #333 1px, transparent 1px);
@@ -12,9 +13,20 @@
     position: absolute;
 }
 
-.controls {
+.buttons {
+    width: 40%;
+    margin: auto; 
+    padding: 1%; 
+    text-align: center;
+    border: 1px solid black; 
     margin-top: 20px;
+    margin-bottom: 20px;
 }
+
+.controls button{
+    margin: 1%; 
+}
+
 
 .button {
     margin-left: 12px;

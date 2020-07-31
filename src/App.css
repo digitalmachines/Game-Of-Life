@@ -1,0 +1,11 @@
+.container{
+    padding: 2%; 
+    display: flex; 
+    flex-wrap: wrap;
+}
+
+.rules{
+    margin: 0 auto; 
+    width: 40%; 
+    color: #006992;
+}

@@ -1,17 +1,17 @@
 import React from 'react';
 import './Board.css';
-import Rules from './Rules'; 
+import { Button } from '@material-ui/core'; 
 
-const CELL_SIZE = 20;
-const WIDTH = 800;
-const HEIGHT = 600;
+const sizeofcell = 25;
+const boardwidth = 800;
+const boardheight = 600;
 
 class Board extends React.Component {
 
     constructor() {
         super();
-        this.rows = HEIGHT / CELL_SIZE;
-        this.cols = WIDTH / CELL_SIZE;
+        this.rows = boardheight / sizeofcell;
+        this.cols = boardwidth / sizeofcell;
 
         this.board = this.makeEmptyBoard();
     }
@@ -63,8 +63,8 @@ class Board extends React.Component {
         const offsetX = event.clientX - elemOffset.x;
         const offsetY = event.clientY - elemOffset.y;
         
-        const x = Math.floor(offsetX / CELL_SIZE);
-        const y = Math.floor(offsetY / CELL_SIZE);
+        const x = Math.floor(offsetX / sizeofcell);
+        const y = Math.floor(offsetY / sizeofcell);
 
         if (x >= 0 && x <= this.cols && y >= 0 && y <= this.rows) {
             this.board[y][x] = !this.board[y][x];
@@ -73,12 +73,12 @@ class Board extends React.Component {
         this.setState({ cells: this.makeCells() });
     }
 
-    runGame = () => {
+    beginGame = () => {
         this.setState({ isRunning: true });
-        this.runIteration();
+        this.runGeneration();
     }
 
-    stopGame = () => {
+    endGame = () => {
         this.setState({ isRunning: false });
         if (this.timeoutHandler) {
             window.clearTimeout(this.timeoutHandler);
@@ -86,12 +86,12 @@ class Board extends React.Component {
         }
     }
 
-    runIteration() {
+    runGeneration() {
         let newBoard = this.makeEmptyBoard();
 
         for (let y = 0; y < this.rows; y++) {
             for (let x = 0; x < this.cols; x++) {
-                let neighbors = this.calculateNeighbors(this.board, x, y);
+                let neighbors = this.countNeighbors(this.board, x, y);
                 if (this.board[y][x]) {
                     if (neighbors === 2 || neighbors === 3) {
                         newBoard[y][x] = true;
@@ -110,7 +110,7 @@ class Board extends React.Component {
         this.setState({ cells: this.makeCells() });
 
         this.timeoutHandler = window.setTimeout(() => {
-            this.runIteration();
+            this.runGeneration();
         }, this.state.interval);
     }
 
@@ -120,7 +120,7 @@ class Board extends React.Component {
      * @param {int} x 
      * @param {int} y 
      */
-    calculateNeighbors(board, x, y) {
+    countNeighbors(board, x, y) {
         let neighbors = 0;
         const dirs = [[-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]];
         for (let i = 0; i < dirs.length; i++) {
@@ -140,12 +140,12 @@ class Board extends React.Component {
         this.setState({ interval: event.target.value });
     }
 
-    handleClear = () => {
+    clearBoard = () => {
         this.board = this.makeEmptyBoard();
         this.setState({ cells: this.makeCells() });
     }
 
-    handleRandom = () => {
+    generateRandom = () => {
         for (let y = 0; y < this.rows; y++) {
             for (let x = 0; x < this.cols; x++) {
                 this.board[y][x] = (Math.random() >= 0.5);
@@ -160,7 +160,7 @@ class Board extends React.Component {
         return (
             <div>
                 <div className="Board"
-                    style={{ width: WIDTH, height: HEIGHT, backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px`}}
+                    style={{ width: boardwidth, height: boardheight, backgroundSize: `${sizeofcell}px ${sizeofcell}px`}}
                     onClick={this.handleClick}
                     ref={(n) => { this.boardRef = n; }}>
 
@@ -169,16 +169,15 @@ class Board extends React.Component {
                     ))}
                 </div>
 
-                <div className="controls">
-                    Update every <input value={this.state.interval} onChange={this.handleIntervalChange} /> msec
+                <div className="buttons">
+                    {/* Update every <input value={this.state.interval} onChange={this.handleIntervalChange} /> msec */}
+                    <Button variant='contained' color='primary' className="button" onClick={this.generateRandom}>Random</Button>
                     {isRunning ?
-                        <button className="button" onClick={this.stopGame}>Stop</button> :
-                        <button className="button" onClick={this.runGame}>Run</button>
+                        <Button variant='contained' color='primary' className="button" onClick={this.endGame}>Stop</Button> :
+                        <Button variant='contained' color='primary' className="button" onClick={this.beginGame}>Start</Button>
                     }
-                    <button className="button" onClick={this.handleRandom}>Random</button>
-                    <button className="button" onClick={this.handleClear}>Clear</button>
+                    <Button variant='contained' color='primary' className="button" onClick={this.clearBoard}>Clear</Button>
                 </div>
-                <Rules/>
             </div>
         );
     }
@@ -190,10 +189,10 @@ class Cell extends React.Component {
         const { x, y } = this.props;
         return (
             <div className="Cell" style={{
-                left: `${CELL_SIZE * x + 1}px`,
-                top: `${CELL_SIZE * y + 1}px`,
-                width: `${CELL_SIZE - 1}px`,
-                height: `${CELL_SIZE - 1}px`,
+                left: `${sizeofcell * x + 1}px`,
+                top: `${sizeofcell * y + 1}px`,
+                width: `${sizeofcell - 1}px`,
+                height: `${sizeofcell - 1}px`,
             }} />
         );
     }

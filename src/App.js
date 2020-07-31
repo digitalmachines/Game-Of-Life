@@ -14,9 +14,13 @@
 //       "Game of Life"
 import React from 'react'; 
 import Board from './Board'; 
+import Rules from './Rules'; 
 
 export default function App(){
 	return(
-		<Board/>
+		<div className='container'>
+			<Board/>
+			<Rules/>
+		</div>
 	)
 }
