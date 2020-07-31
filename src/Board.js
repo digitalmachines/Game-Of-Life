@@ -1,10 +1,10 @@
 import React from 'react';
 import './Board.css';
-import { Button } from '@material-ui/core'; 
+import { Button, TextField } from '@material-ui/core'; 
 
 const boardwidth = 800;
 const boardheight = 600;
-const sizeofcell = 25;
+const sizeofcell = 25; 
 
 class Board extends React.Component {
 
@@ -24,15 +24,15 @@ class Board extends React.Component {
     }
 
     generateEmptyGrid() {
-        let board = [];
+        let grid = [];
         for (let y = 0; y < this.rows; y++) {
-            board[y] = [];
+            grid[y] = [];
             for (let x = 0; x < this.cols; x++) {
-                board[y][x] = false;
+                grid[y][x] = false;
             }
         }
 
-        return board;
+        return grid;
     }
 
     getElementOffset() {
@@ -88,26 +88,26 @@ class Board extends React.Component {
     }
 
     runGeneration() {
-        let newBoard = this.generateEmptyGrid();
+        let newGrid = this.generateEmptyGrid();
 
         for (let y = 0; y < this.rows; y++) {
             for (let x = 0; x < this.cols; x++) {
                 let neighbors = this.countNeighbors(this.board, x, y);
-                if (this.board[y][x]) {
+                if (this.board[y][x]) { // If the cell is alive
                     if (neighbors === 2 || neighbors === 3) {
-                        newBoard[y][x] = true;
+                        newGrid[y][x] = true;
                     } else {
-                        newBoard[y][x] = false;
+                        newGrid[y][x] = false;
                     }
-                } else {
+                } else { // If the cell is dead
                     if (!this.board[y][x] && neighbors === 3) {
-                        newBoard[y][x] = true;
+                        newGrid[y][x] = true;
                     }
                 }
             }
         }
 
-        this.board = newBoard;
+        this.board = newGrid;
         this.setState({ cells: this.makeCells() });
         this.setState(prevState => {
             return {generations: prevState.generations + 1}
@@ -140,6 +140,10 @@ class Board extends React.Component {
         return neighbors;
     }
 
+    handleIntervalChange = (event) => {
+        this.setState({ interval: event.target.value });
+    }
+
     clearBoard = () => {
         this.board = this.generateEmptyGrid();
         this.setState({ cells: this.makeCells() });
@@ -147,6 +151,7 @@ class Board extends React.Component {
     }
 
     generateRandom = () => {
+
         for (let y = 0; y < this.rows; y++) {
             for (let x = 0; x < this.cols; x++) {
                 this.board[y][x] = (Math.random() >= 0.5);
@@ -155,6 +160,8 @@ class Board extends React.Component {
 
         this.setState({ cells: this.makeCells() });
     }
+
+    
 
     render() {
         const { cells, isRunning } = this.state;
@@ -171,6 +178,7 @@ class Board extends React.Component {
                 </div>
                 <h2>Generations: {this.state.generations}    </h2>
                 <div className="buttons">
+                    <TextField variant='outlined' value={this.state.interval} onChange={this.handleIntervalChange} /> <h3>Set the time in milliseconds (default: 100)</h3>
                     {isRunning ?
                         <Button size='large' variant='contained' color='primary' className="button" onClick={this.endGame}>End Game</Button> :
                         <Button size='large' variant='contained' color='primary' className="button" onClick={this.beginGame}>Begin Game</Button>

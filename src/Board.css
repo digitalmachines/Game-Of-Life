@@ -2,19 +2,20 @@
     border: 1px solid black; 
     position: relative;
     margin: 0 auto;
-    background-color: #001D4A;
+    background-color: #BCED09;
     background-image:
         linear-gradient(#333 1px, transparent 1px),
         linear-gradient(90deg, #333 1px, transparent 1px);
 }
 
 .Cell {
-    background: #ccc;
+    background: #E3170A;
     position: absolute;
 }
 
 .buttons {
-    width: 40%;
+    border: 1px solid black; 
+    width: 95%;
     margin: auto; 
     padding: 1%; 
     text-align: center;
